@@ -4,7 +4,7 @@ Measured locally on 2 October 2026. These results are for synthetic examples onl
 
 | Check | Result |
 |---|---|
-| Automated Python/UI suite | 54 passed locally; 2 PostgreSQL tests run separately in CI |
+| Automated Python/UI suite | 54 passed locally; full CI suite passed with both PostgreSQL integration tests |
 | PostgreSQL integration test | Passed against PostgreSQL 17 in CI |
 | Known-match keyword top-3 hit rate | 10/10 |
 | Keyword no-match cases | 0/4 |
@@ -81,3 +81,5 @@ Neon PostgreSQL connection. Staff collection removes both, and startup does not
 recreate them. Local UI tests cover student search and explicit staff confirmation.
 The existing 20-query benchmark was rerun unchanged; it does not evaluate location
 retrieval quality or live AI.
+
+Current staff-inventory CI: https://github.com/Chris-LongZeyan/AILT-G19/actions/runs/36978530394 (cf8cadd).
