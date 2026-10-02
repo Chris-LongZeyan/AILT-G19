@@ -1,136 +1,77 @@
 # Deployment
 
-## Render Free with SQLite
+## Live services
 
-This is the selected no-charge demo configuration. Free plans and quotas should be
-confirmed in Render at deployment time. As checked on 2 October 2026, free web
-services sleep after 15 minutes idle and lose local filesystem changes on restart.
-The catalogue automatically rebuilds its 30 synthetic records. The app deliberately
-does not accept item submissions or store searches.
+- Application: https://campus-find-g19.onrender.com
+- Standalone page: https://campus-find-g19-project.onrender.com
+- Source: private Chris-LongZeyan/AILT-G19, main branch
+- Original team repository: unchanged
+- Render web service: srv-davk9lbncjis73en5us0, Docker Free, Singapore
+- Render static site: srv-davkmvvavr4c73cds0eg, publish directory website
+- Manual deployment only; auto-deploy is off
 
-Free Render PostgreSQL expires after 30 days, so it is not the default for this
-semester-long demo. PostgreSQL remains supported through DATABASE_URL.
-Source: https://render.com/docs/free
+## Persistent inventory
 
-### Source requirement
+The staff inventory uses Neon PostgreSQL in Singapore (Free plan), project
+campus-find-g19. Items, compressed JPEG photos, account hashes, session hashes and
+audit events are stored in SQL, independently of Render's filesystem.
+Set Render DATABASE_URL to the Neon connection string, retaining TLS settings.
+Never put it into render.yaml, Git, screenshots or the public project page.
 
-Render builds from a connected Git repository or pulls a published container
-image; it does not upload this local folder directly. The original team remote is
-`git@github.com:jason-0712/AILT-G19.git`. The user authorised publishing to a new private repository: Chris-LongZeyan/AILT-G19. Use that repository for Render; keep the original team remote untouched.
+Free Render local files are ephemeral. Staff writes are deliberately refused
+when RENDER is set and the database is SQLite. SQLite remains supported locally
+with its file on persistent storage. The old live SQLite catalogue contained only
+the 30 fictional seed records; no staff records required transfer.
 
-The connected Render account has access to the newly created private repository
-Chris-LongZeyan/AILT-G19. The original team repository was not modified.
+Database startup creates missing tables and upgrades the original items table
+with place and created_at columns. Existing descriptions are preserved. Seeding
+is recorded once in app_meta: collection does not cause seed records to reappear.
+SEED_DEMO_DATA=false starts an empty database on first initialization; changing
+it later does not add or delete records.
 
-### Verified deployment
+Photos accept JPEG/PNG/WebP up to 5 MB and 16 million pixels. They are re-encoded,
+metadata is stripped, and the stored JPEG is limited to 400 KB. Free database
+storage is finite; monitor Neon usage before adding large inventories. No paid
+plan or additional storage subscription was selected.
 
-- Live URL: https://campus-find-g19.onrender.com
-- Render service: campus-find-g19, srv-davk9lbncjis73en5us0
-- Deployed application commit: 3d29df6 (minimal interface and standalone overview)
-- First deployment: 2 October 2026, about 13:46 Asia/Shanghai
-- Latest application deployment verified: 2 October 2026, about 14:13 Asia/Shanghai
-- Plan: Free ($0 selected), Singapore, Docker, SQLite
-- Auto-deploy: Off
-- No LLM key or paid database configured
-- CI: test suite and Docker build passed for 3d29df6; run 36972307731
+Collection deletes the active item and its photo in one transaction, retaining
+only item ID, action, staff account ID and time in an audit table. Provider
+backups may still contain historical versions until their retention expires.
+Configure appropriate backups and periodically test restoration before using
+this course project as an operational service.
 
-Future app changes require a manual deploy from Render after pushing reviewed
-code. Documentation-only updates do not need redeploying the application.
+## Deployment procedure
 
-### Service settings
+1. Run tests with a dedicated TEST_DATABASE_URL for PostgreSQL integration.
+2. Push to the personal private repository.
+3. In Render, save DATABASE_URL as a secret environment variable.
+4. Deploy the latest reviewed commit to the application and static site.
+5. Verify student search and place filters.
+6. Sign in as staff; add a clearly synthetic item/photo, verify it through a
+   separate student session, reconnect/restart, and confirm collection.
+7. Confirm the item and photo no longer appear and do not return after startup.
 
-| Setting | Value |
-|---|---|
-| Service type | Web Service |
-| Name | campus-find-g19 |
-| Runtime | Docker |
-| Instance plan | Free |
-| Region | Singapore, if available |
-| Health check | /_stcore/health |
-| Auto deploy | Off |
-| DATABASE_URL | sqlite:///storage/items.db |
-| LLM_REQUESTS_PER_MINUTE | 10 |
+The static site serves website/index.html. All CSS and the running screenshot
+are embedded; the file also works offline. The repository-link placeholder must
+be replaced before assessment.
 
-`render.yaml` encodes these settings for the Blueprint flow.
-Do not select a paid database, disk or service. Review any billing screen rather
-than accepting an upgrade. Do not add payment information just for this demo.
+## Staff and optional AI/SSO
 
-The Docker entrypoint reads Render's PORT variable and binds to 0.0.0.0.
-Do not disable CORS or XSRF protections. Render terminates HTTPS and supports the
-WebSocket connection Streamlit needs.
+See STAFF_AND_SIGNIN.md for provisioning and the pending Microsoft registration.
+There are no default committed passwords. Local generated staff credentials are
+stored in ignored storage/staff-access.txt for the owner.
 
-### After deployment
+The LLM API key is still unavailable. Add LLM_API_KEY, LLM_BASE_URL, LLM_MODEL and
+LLM_PROVIDER as server-side environment variables when ready. The provider must
+support the adapter's Chat Completions JSON contract. Staff passwords and photos
+are never included in model requests. Live AI evaluation remains pending.
 
-1. Wait for the successful build and healthy service.
-2. Open its generated HTTPS address.
-3. Confirm 30 fictional records appear in the Catalogue tab.
-4. Search the supplied black-bottle query in Keyword mode and verify LF001.
-5. Verify AI mode explains the missing key, without fabricated matches.
-6. Try a blank query and an ownership request.
-7. Restart the service and repeat the catalogue and query checks.
+## Local containers
 
-A green deployment health check alone is not proof that the application works.
-Record the actual URL and deployment date after these checks pass.
+`docker compose up --build -d` uses SQLite on a named volume.
+For PostgreSQL, set POSTGRES_PASSWORD in ignored .env, then run:
+`docker compose -f compose.postgres.yaml up --build -d`.
 
-## LLM activation
-
-Add LLM_API_KEY, LLM_BASE_URL, LLM_MODEL and LLM_PROVIDER in Render's environment
-settings after the team selects a compatible provider. Leave them absent until
-then. Restart and perform one synthetic query, then run the evaluation from a
-controlled local environment. Provider charges are separate from free hosting.
-Review retention and set a provider spending limit.
-
-## Local Docker
-
-Start Docker Desktop, then:
-
-```powershell
-docker compose up --build -d
-docker compose logs --tail 50 app
-```
-
-For PostgreSQL, set POSTGRES_PASSWORD to a long random alphanumeric string in
-the ignored .env file, then:
-
-```powershell
-docker compose -f compose.postgres.yaml up --build -d
-```
-
-Using alphanumeric passwords here avoids URL-interpolation ambiguity in Compose;
-external connection strings must percent-encode any special characters.
-
-Both variants expose only http://localhost:8501. Compose named volumes preserve
-the database. Stop using the same compose file with `down`, without `-v`.
-Take database backups before deleting volumes or applying schema changes.
-
-Docker builds passed in GitHub CI and Render. The local Docker daemon did not
-respond during verification, so local Compose startup remains unverified. The
-PostgreSQL adapter passed its integration test in GitHub CI.
-
-## Alternative PostgreSQL host
-
-Set DATABASE_URL to a managed PostgreSQL connection string and follow its TLS
-instructions, normally sslmode=require. There is no requirement to open a paid
-account for local SQLite. To test the PostgreSQL adapter, run pytest with
-TEST_DATABASE_URL pointing to a separate test database. Never expose a database
-password in frontend code or commit it.
-
-## Standalone project overview
-
-A separate Render Static Site serves `website/index.html`:
-`https://campus-find-g19-project.onrender.com`.
-
-Use the same private source repository and main branch. Set the publish directory
-to `website`, leave the build command empty, and turn auto-deploy off. This is
-a static site, not another paid web-service instance. The self-contained HTML
-also works when opened directly from disk. Update the placeholder repository
-link before assessment; the private source repository remains unchanged in
-visibility.
-
-The Streamlit About tab links to this distinct project page. Static HTML is
-hosted separately because Streamlit's built-in static serving sends HTML as
-plain text rather than rendering it.
-
-Verified live on 2 October 2026 at about 14:14 Asia/Shanghai, from commit
-`3d29df6`. Static service ID: `srv-davkmvvavr4c73cds0eg`. Both pages were
-checked at desktop and 390-pixel mobile widths. The project page embeds an
-actual running example and requires no external assets when opened offline.
+The local Docker daemon was unavailable during initial verification; CI and
+Render validate container builds. Never run integration tests against the live
+inventory. Use a dedicated test database.

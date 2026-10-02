@@ -5,11 +5,14 @@ class StrictModel(BaseModel):
     model_config = ConfigDict(extra="forbid", strict=True)
 
 class Item(StrictModel):
-    id: str = Field(pattern=r"^LF-\d{3}$")
+    id: str = Field(pattern=r"^LF-(?:\d{3}|[a-f0-9]{12})$")
     type: str = Field(min_length=1, max_length=80)
     colour: str = Field(min_length=1, max_length=60)
     features: list[str] = Field(min_length=1, max_length=6)
     description: str = Field(min_length=10, max_length=600)
+
+    place: str = Field(default="Not recorded", max_length=160)
+    created_at: int = 0
 
 class Match(StrictModel):
     id: str
