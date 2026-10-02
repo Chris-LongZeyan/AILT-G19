@@ -112,3 +112,19 @@ instructions, normally sslmode=require. There is no requirement to open a paid
 account for local SQLite. To test the PostgreSQL adapter, run pytest with
 TEST_DATABASE_URL pointing to a separate test database. Never expose a database
 password in frontend code or commit it.
+
+## Standalone project overview
+
+A separate Render Static Site serves `website/index.html`:
+`https://campus-find-g19-project.onrender.com`.
+
+Use the same private source repository and main branch. Set the publish directory
+to `website`, leave the build command empty, and turn auto-deploy off. This is
+a static site, not another paid web-service instance. The self-contained HTML
+also works when opened directly from disk. Update the placeholder repository
+link before assessment; the private source repository remains unchanged in
+visibility.
+
+The Streamlit About tab links to this distinct project page. Static HTML is
+hosted separately because Streamlit's built-in static serving sends HTML as
+plain text rather than rendering it.

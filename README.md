@@ -2,6 +2,8 @@
 
 **Live demo:** https://campus-find-g19.onrender.com
 
+**Project overview:** https://campus-find-g19-project.onrender.com
+
 **Private source:** https://github.com/Chris-LongZeyan/AILT-G19
 
 A browser-based lost-and-found matching demonstration for AILT9019 Group 19.
@@ -39,6 +41,18 @@ python3.13 -m venv .venv
 .venv/bin/python -m streamlit run app.py --server.address=127.0.0.1
 ```
 
+## Standalone project webpage
+
+Open `website/index.html` directly in a browser. It is a separate, self-contained
+project explanation with inline CSS and an embedded screenshot of an actual run.
+No build step, JavaScript framework, external fonts or image folder is required.
+
+The page explains the users and problem, input-processing-output workflow,
+implementation and tools, run instructions, evidence, evaluation and limitations.
+The repository link is intentionally a labelled placeholder at the user's request;
+replace it and verify assessor access before submission.
+See [rubric coverage](docs/WEBPAGE_RUBRIC.md).
+
 ## First search
 
 Choose **Keyword search**, enter **black insulated bottle with a silver lid**,
@@ -46,7 +60,7 @@ and click **Search items**. LF-001 should be the first possible match. Its origi
 description mentions a silver screw lid and a crescent sticker. Other baseline
 results may conflict with the query: this mode only counts shared words.
 
-Use **Browse catalogue** to inspect all 30 fictional records or filter by category.
+Use **Catalogue** to inspect all 30 fictional records or filter by category.
 Choose **AI matching** to see its configuration status. An absent key produces a
 clear message, not fabricated AI results. Switching modes never silently performs
 a fallback request.

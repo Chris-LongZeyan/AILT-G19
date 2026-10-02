@@ -1,13 +1,16 @@
+"""Streamlit presentation layer for the Campus Find course demonstration."""
 from html import escape
-from pathlib import Path
+
 import streamlit as st
 from sqlalchemy.exc import SQLAlchemyError
-from lostfound.config import load_settings, ROOT
-from lostfound.database import connect_database, initialize, list_items
-from lostfound.matching import search, PROMPT_VERSION
 
-st.set_page_config(page_title="Campus Find | Lost & Found", page_icon="🌿", layout="wide")
+from lostfound.config import ROOT, load_settings
+from lostfound.database import connect_database, initialize, list_items
+from lostfound.matching import PROMPT_VERSION, search
+
+st.set_page_config(page_title="Campus Find", page_icon="🌿", layout="centered")
 st.html("<style>" + (ROOT / "assets/style.css").read_text(encoding="utf-8") + "</style>")
+
 
 @st.cache_resource(show_spinner=False)
 def get_database(url):
@@ -15,73 +18,78 @@ def get_database(url):
     initialize(engine)
     return engine
 
-def card(item, rank=None, evidence=None):
-    title = escape(item.colour.title() + " " + item.type.lower())
-    badge = f"Possible match {rank}" if rank else "Fictional record"
+
+def item_card(item, rank=None, evidence=None):
+    """Render escaped catalogue content; arbitrary model prose is never displayed."""
+    label = f"Possible match {rank}" if rank else item.type
     quotes = ""
     if evidence:
-        quotes = '<div class="evidence"><b>Source evidence</b><br>' + "<br>".join(
-            "&ldquo;" + escape(q) + "&rdquo;" for q in evidence) + "</div>"
-    st.html(f'<article class="item-card"><div class="item-top"><span class="item-id">{escape(item.id)}</span>'
-            f'<span class="result-badge">{badge}</span></div><div class="item-title">{title}</div>'
-            f'<div class="item-description">{escape(item.description)}</div>{quotes}</article>')
+        quotes = '<div class="evidence"><span>Evidence from this record</span>' + "".join(
+            "<blockquote>" + escape(quote) + "</blockquote>" for quote in evidence
+        ) + "</div>"
+    st.html(
+        f'<article class="item-card"><div class="item-meta"><span>{escape(label)}</span>'
+        f'<span class="item-id">{escape(item.id)}</span></div>'
+        f'<h3>{escape(item.colour.title() + " " + item.type.lower())}</h3>'
+        f'<p>{escape(item.description)}</p>{quotes}</article>'
+    )
 
-st.html('<div class="brand"><div class="brand-mark">cf.</div><div><div class="brand-name">Campus Find</div>'
-        '<div class="brand-caption">Lost &amp; found matcher</div></div><div class="course-tag">AILT9019 · Group 19</div></div>')
+
+st.html(
+    '<header class="app-header"><span class="wordmark">Campus Find<span class="brand-dot">.</span></span>'
+    '<span class="project-label">AILT9019 · Group 19</span></header>'
+)
 try:
     settings = load_settings()
     engine = get_database(settings.database_url)
     catalogue = list_items(engine)
 except (SQLAlchemyError, ValueError, OSError):
-    st.error("The item catalogue is unavailable. Check the database configuration and restart the app.")
+    st.error("The catalogue is unavailable. Check the database configuration and restart the app.")
     st.stop()
 
-left, right = st.columns([1.8, 1], gap="large")
-with left:
-    st.html('<div class="eyebrow">A little detail goes a long way</div>')
-    st.html('<h1>Less searching.<br>More finding.</h1>')
-    st.html('<p class="intro">A colour, a pattern, a familiar detail. Describe a fictional lost item and explore what might match.</p>')
-with right:
-    st.html('<aside class="hero-note"><b>Small clues. Possible matches.</b><p>Start with the item type, then add its colour or a distinctive feature. Every suggestion links back to its original record.</p></aside>')
-st.html(f'<div class="meta-row"><span class="pill">{len(catalogue)} fictional items</span>'
-        '<span class="pill">Up to 3 possible matches</span><span class="pill">No account needed</span></div>')
+st.html('<h1>Find a lost item</h1><p class="intro">Describe its type, colour or a distinctive feature.</p>')
+search_tab, browse_tab, about_tab = st.tabs(["Search", "Catalogue", "About"])
 
-search_tab, browse_tab, about_tab = st.tabs(["Find an item", "Browse catalogue", "About this demo"])
 with search_tab:
-    st.subheader("What are you looking for?")
-    st.caption("Course demonstration only. Enter fictional descriptions in English, without names, contacts or serial numbers.")
+    st.caption("Course demo · Fictional descriptions only. Do not enter personal details.")
     mode_label = st.radio("Search method", ["Keyword search", "AI matching"], horizontal=True)
     mode = "ai" if mode_label == "AI matching" else "keyword"
     if mode == "ai":
         if settings.ai_ready:
-            st.caption(f"AI provider: {settings.provider} · Model: {settings.model}. Your fictional query and the selected catalogue records are sent to this provider.")
+            st.caption(f"{settings.provider} · {settings.model}. The query and selected records are sent to this provider.")
         else:
-            st.info("AI matching is waiting for the team's API configuration. Keyword search is available now.")
+            st.info("AI matching is not configured. Use Keyword search until the team's API key is added.")
     else:
-        st.caption("Keyword search is a word-overlap baseline. It does not understand synonyms or resolve conflicting details.")
-    with st.form("search_form"):
-        query = st.text_area("Describe the item", max_chars=300, height=110,
-                             placeholder="For example: black insulated bottle with a silver lid")
+        st.caption("Matches shared words. Synonyms and conflicting details may be missed.")
+
+    with st.form("search_form", border=False):
+        query = st.text_area(
+            "Describe the item", max_chars=300, height=96,
+            placeholder="e.g. black insulated bottle with a silver lid",
+        )
         category = st.selectbox("Category (optional)", ["All items"] + sorted({r.type for r in catalogue}))
         submitted = st.form_submit_button("Search items", type="primary", width="stretch")
+
     if submitted:
         selected = [r for r in catalogue if category == "All items" or r.type == category]
-        with st.spinner("Checking the catalogue…"):
+        with st.spinner("Searching…"):
             result = search(query, selected, mode, settings)
         st.session_state["result"] = result
         st.session_state["result_mode"] = mode
+        st.session_state["result_query"] = query
+
     result = st.session_state.get("result")
     if result and st.session_state.get("result_mode") == mode:
         st.divider()
         st.subheader("Search results")
-        st.caption("AI matching" if result.mode == "ai" else "Keyword search · not AI")
+        st.caption("AI matching · source-checked evidence" if mode == "ai" else "Keyword search · not AI")
         if result.status == "matches":
-            st.write(result.message)
+            st.write("Review the original descriptions. A suggestion does not confirm ownership.")
             by_id = {r.id: r for r in catalogue}
             for index, match in enumerate(result.matches, 1):
                 if match.id in by_id:
-                    card(by_id[match.id], index, match.evidence)
-            st.caption("Suggestions do not prove ownership or authorise collection.")
+                    # The baseline quotes the complete description; repeating it adds no information.
+                    item_card(by_id[match.id], index, match.evidence if mode == "ai" else None)
         elif result.status in {"error", "invalid"}:
             st.error(result.message)
         elif result.status == "refused":
@@ -89,42 +97,40 @@ with search_tab:
         else:
             st.info(result.message)
     elif not result:
-        st.caption("Try the example above. In keyword mode, LF-001 should appear first.")
+        st.caption("Try the example above. The black bottle (LF-001) should appear first.")
 
 with browse_tab:
-    st.subheader("The fictional found-item catalogue")
-    st.write("Explore the original records used by both search methods.")
+    st.subheader("Item catalogue")
+    st.caption(f"{len(catalogue)} fictional records. These are the original descriptions used in both search modes.")
     browse_category = st.selectbox("Browse by category", ["All items"] + sorted({r.type for r in catalogue}))
     visible = [r for r in catalogue if browse_category == "All items" or r.type == browse_category]
-    st.caption(f"{len(visible)} records")
-    columns = st.columns(2)
-    for i, item in enumerate(visible):
-        with columns[i % 2]:
-            card(item)
+    st.caption(f"{len(visible)} items")
+    for item in visible:
+        item_card(item)
+
 with about_tab:
-    st.subheader("A course project, built around careful matching")
-    st.write("Campus Find explores how an AI model compares everyday descriptions with a fixed catalogue. It is an independent student demonstration, not an official HKU service.")
-    st.markdown("""**How matching works**
-1. Check the description and reject unsupported requests.
-2. Compare it with the selected fictional records.
-3. Validate every returned ID and verbatim evidence phrase.
-4. Show at most three possible matches with the original descriptions.
+    st.subheader("About the demonstration")
+    st.write("Campus Find is an independent student project exploring lost-item matching. It is not an official HKU service.")
+    st.markdown("""### How it works
+The app checks an English description of up to 300 characters, searches the
+selected fictional records, and returns up to three possible matches.
+Keyword search counts shared words. The AI adapter requests ranked item IDs and
+verbatim evidence, then rejects invalid IDs or unsupported excerpts.
 
-**What this demo does not do**
-It cannot verify ownership, identify owners, disclose contacts or arrange collection.
-It does not access real campus posts or university systems.
+### Scope and privacy
+This demo cannot identify owners, reveal contacts, verify ownership or authorise
+collection. It does not access real campus posts or university systems.
+Queries are not saved in the database; form values and the latest result remain
+in the current browser session. AI mode sends fictional input and selected
+records to the configured provider, whose retention policy applies.
 
-**Data and privacy**
-The database contains only 30 fictional records. The app does not persist queries,
-search history or personal profiles. Search text remains in browser-session memory
-while the page is open. AI mode sends the query and selected records to the configured
-provider; that provider's retention policy applies. Keyword mode makes no model request.
-
-**Evaluation**
-The project includes a 20-query evaluation set and a separate keyword baseline.
-Live AI accuracy and human usability checks remain pending. Verbatim evidence checks
-do not establish semantic correctness: team members must review explanations.
-The initial catalogue and implementation were AI-assisted and need team review.
+### Evaluation status
+The keyword baseline found an acceptable item in all 10 known-match cases, but
+failed all four no-match cases. These small-sample results do not measure AI
+accuracy. Live AI evaluation, independent dataset review and classmate usability
+checks are pending. The code and initial synthetic data were AI-assisted.
 """)
-    st.caption(f"Prompt version: {PROMPT_VERSION} · Database: {engine.dialect.name} · Dataset: fictional-v1")
-st.html('<footer class="footnote">Campus Find · AILT9019 Group 19<br>Fictional data. Possible matches. Independent verification would be required for any real-world collection.</footer>')
+    st.link_button("Read the project overview", "https://campus-find-g19-project.onrender.com")
+    st.caption(f"Prompt: {PROMPT_VERSION} · Database: {engine.dialect.name} · Dataset: fictional-v1")
+
+st.html('<footer class="app-footer">30 fictional records · Up to 3 suggestions · No ownership verification</footer>')

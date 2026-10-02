@@ -11,3 +11,9 @@ services:
         value: sqlite:///storage/items.db
       - key: LLM_REQUESTS_PER_MINUTE
         value: "10"
+  - type: web
+    name: campus-find-g19-project
+    runtime: static
+    buildCommand: ""
+    staticPublishPath: ./website
+    autoDeployTrigger: off
