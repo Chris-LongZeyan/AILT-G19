@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: campus-find-g19
+    runtime: docker
+    plan: free
+    region: singapore
+    autoDeployTrigger: off
+    healthCheckPath: /_stcore/health
+    envVars:
+      - key: DATABASE_URL
+        value: sqlite:///storage/items.db
+      - key: LLM_REQUESTS_PER_MINUTE
+        value: "10"

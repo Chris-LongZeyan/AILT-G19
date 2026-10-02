@@ -1,0 +1,31 @@
+:root { --leaf:#8EC63F; --forest:#264C36; --muted:#617267; }
+.stApp {background:#f7f9f4;}
+.block-container {max-width:1160px; padding-top:4.6rem; padding-bottom:2rem;}
+h1,h2,h3 {letter-spacing:-.035em; color:var(--forest);}
+h1 {margin:0!important; font-size:3.35rem!important; line-height:1.08!important; font-weight:750!important;}
+[data-testid="stHeader"] {background:rgba(247,249,244,.94);}
+.brand {display:flex; align-items:center; gap:12px; border-bottom:1px solid #dae3d5; padding:0 0 20px; margin-bottom:36px;}
+.brand-mark {background:var(--forest); color:var(--leaf); padding:7px 13px; border-radius:12px; font-size:26px; font-weight:800;}
+.brand-name {font-size:18px; font-weight:700; color:var(--forest);}
+.brand-caption {font-size:11px; color:var(--muted); letter-spacing:.09em; text-transform:uppercase;}
+.course-tag {margin-left:auto; border:1px solid #d6e3cb; border-radius:25px; padding:7px 13px; font-size:12px; color:#425a40;}
+.eyebrow {color:#527338; font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; margin-bottom:12px;}
+.intro {font-size:18px; color:var(--muted); line-height:1.65; max-width:610px; margin-bottom:24px;}
+.hero-note {background:#eaf1e1; border-radius:22px; padding:24px; border:1px solid #dbe7cf; margin:12px 0 28px;}
+.hero-note b {color:var(--forest); font-size:20px;}
+.hero-note p {font-size:14px; line-height:1.7; color:#52654d; margin-bottom:0;}
+.meta-row {display:flex; gap:10px; flex-wrap:wrap; margin:20px 0 26px;}
+.pill {font-size:12px; border:1px solid #dbe4d6; border-radius:20px; background:white; padding:6px 12px; color:#50634f;}
+[data-testid="stForm"] {background:white; border:1px solid #dce5d7; border-radius:20px; padding:24px;}
+[data-testid="stTextArea"] textarea {font-size:16px; line-height:1.65; background:#f8faf6;}
+button[kind="primaryFormSubmit"], button[kind="primary"] {background:#8EC63F!important; color:#1f321a!important; border:1px solid #8EC63F!important; font-weight:700;}
+button:focus-visible,textarea:focus-visible,input:focus-visible,a:focus-visible {outline:3px solid #387443!important; outline-offset:3px!important;}
+.item-card {background:white; border:1px solid #dce5d7; border-radius:18px; padding:22px; margin:12px 0; min-height:180px;}
+.item-top {display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;}
+.item-id {font-family:monospace; font-size:12px; color:#60765b;}
+.result-badge {font-size:11px; color:#476932; background:#edf4e4; padding:5px 9px; border-radius:20px;}
+.item-title {font-size:21px; font-weight:700; color:#294d35; margin-bottom:9px;}
+.item-description {font-size:15px; line-height:1.65; color:#53614e;}
+.evidence {border-left:3px solid #8EC63F; margin-top:16px; padding:8px 12px; background:#f6f9f0; color:#405a35; font-size:14px;}
+.footnote {border-top:1px solid #dbe4d6; margin-top:32px; padding-top:20px; color:#647260; font-size:12px; line-height:1.8;}
+@media(max-width:640px) {h1 {margin:0!important; font-size:2.45rem!important;} .block-container {padding:4.5rem 1.2rem 1.2rem;} .course-tag{display:none;} .brand{margin-bottom:24px;} [data-testid="stForm"]{padding:16px;} }
