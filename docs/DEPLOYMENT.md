@@ -25,12 +25,13 @@ Chris-LongZeyan/AILT-G19. The original team repository was not modified.
 
 - Live URL: https://campus-find-g19.onrender.com
 - Render service: campus-find-g19, srv-davk9lbncjis73en5us0
-- Deployed application commit: 072f3b0
+- Deployed application commit: 3d29df6 (minimal interface and standalone overview)
 - First deployment: 2 October 2026, about 13:46 Asia/Shanghai
+- Latest application deployment verified: 2 October 2026, about 14:13 Asia/Shanghai
 - Plan: Free ($0 selected), Singapore, Docker, SQLite
 - Auto-deploy: Off
 - No LLM key or paid database configured
-- CI: all 45 tests and Docker build passed
+- CI: test suite and Docker build passed for 3d29df6; run 36972307731
 
 Future app changes require a manual deploy from Render after pushing reviewed
 code. Documentation-only updates do not need redeploying the application.
@@ -61,8 +62,8 @@ WebSocket connection Streamlit needs.
 
 1. Wait for the successful build and healthy service.
 2. Open its generated HTTPS address.
-3. Confirm 30 fictional records appear in Browse catalogue.
-4. Search the supplied black-bottle query in Keyword mode and verify LF-001.
+3. Confirm 30 fictional records appear in the Catalogue tab.
+4. Search the supplied black-bottle query in Keyword mode and verify LF001.
 5. Verify AI mode explains the missing key, without fabricated matches.
 6. Try a blank query and an ownership request.
 7. Restart the service and repeat the catalogue and query checks.
@@ -128,3 +129,8 @@ visibility.
 The Streamlit About tab links to this distinct project page. Static HTML is
 hosted separately because Streamlit's built-in static serving sends HTML as
 plain text rather than rendering it.
+
+Verified live on 2 October 2026 at about 14:14 Asia/Shanghai, from commit
+`3d29df6`. Static service ID: `srv-davkmvvavr4c73cds0eg`. Both pages were
+checked at desktop and 390-pixel mobile widths. The project page embeds an
+actual running example and requires no external assets when opened offline.
