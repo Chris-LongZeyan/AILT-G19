@@ -1,5 +1,9 @@
 # Campus Find
 
+**Live demo:** https://campus-find-g19.onrender.com
+
+**Private source:** https://github.com/Chris-LongZeyan/AILT-G19
+
 A browser-based lost-and-found matching demonstration for AILT9019 Group 19.
 Describe a fictional item, search a real SQL catalogue, and inspect up to three
 possible matches with their original descriptions.
@@ -128,8 +132,8 @@ New-Item -ItemType Directory -Force $env:TEMP
 
 A PostgreSQL integration test runs when `TEST_DATABASE_URL` points to a dedicated
 test database. Do not point it to production. The checked-in CI workflow starts
-PostgreSQL and builds Docker when you choose to push the project; it has not been
-run remotely yet.
+PostgreSQL and builds Docker on each push. The first CI run passed all 45 tests, including PostgreSQL,
+and successfully built the Docker image.
 
 After configuring the model:
 
@@ -164,8 +168,8 @@ filter, keyword baseline, provider adapter, strict ID/evidence validation, defen
 error handling, evaluation runner, tests and deployment configuration.
 
 Pending: real provider selection/key, live AI evaluation, human review of the
-synthetic records and answer key, two-classmate usability checks, an actual
-PostgreSQL integration run, container build verification and public deployment.
+synthetic records and answer key, and two-classmate usability checks. PostgreSQL integration and Docker builds
+passed in CI; the Render Free deployment is live.
 
 Photos, OCR, accounts, item posting, real campus data and ownership decisions are
 outside the proposal's scope. SQLite/PostgreSQL and deployment were added at the
@@ -173,3 +177,6 @@ team's explicit request. AI assistance was used for code, UI, synthetic records 
 draft evaluation cases; team members must inspect and understand the deliverables.
 
 Publication is authorised only to the new private repository Chris-LongZeyan/AILT-G19. The original team repository jason-0712/AILT-G19 is not modified.
+
+The local remote named private points to your new repository and is the default
+push destination. The original origin remote is preserved for team reference.

@@ -18,15 +18,22 @@ Render builds from a connected Git repository or pulls a published container
 image; it does not upload this local folder directly. The original team remote is
 `git@github.com:jason-0712/AILT-G19.git`. The user authorised publishing to a new private repository: Chris-LongZeyan/AILT-G19. Use that repository for Render; keep the original team remote untouched.
 
-The signed-in Render account must have access to Chris-LongZeyan/AILT-G19. At initial inspection,
-the connected repository list did not include it. The repository owner may need
-to allow the Render GitHub app access. Do not change permissions on unrelated
-repositories or deploy the unrelated AILT9019 repository.
+The connected Render account has access to the newly created private repository
+Chris-LongZeyan/AILT-G19. The original team repository was not modified.
 
-Publish the reviewed project only to the newly authorised private
-intended repository/branch, then select that exact repository in Render.
-Alternatively, publish the Docker image to a registry you control and use
-Render's Existing Image flow. Container upload also requires registry access.
+### Verified deployment
+
+- Live URL: https://campus-find-g19.onrender.com
+- Render service: campus-find-g19, srv-davk9lbncjis73en5us0
+- Deployed application commit: 072f3b0
+- First deployment: 2 October 2026, about 13:46 Asia/Shanghai
+- Plan: Free ($0 selected), Singapore, Docker, SQLite
+- Auto-deploy: Off
+- No LLM key or paid database configured
+- CI: all 45 tests and Docker build passed
+
+Future app changes require a manual deploy from Render after pushing reviewed
+code. Documentation-only updates do not need redeploying the application.
 
 ### Service settings
 
@@ -94,8 +101,9 @@ Both variants expose only http://localhost:8501. Compose named volumes preserve
 the database. Stop using the same compose file with `down`, without `-v`.
 Take database backups before deleting volumes or applying schema changes.
 
-Docker configuration was prepared, but no successful build is claimed until the
-Docker daemon is available and the container smoke test passes.
+Docker builds passed in GitHub CI and Render. The local Docker daemon did not
+respond during verification, so local Compose startup remains unverified. The
+PostgreSQL adapter passed its integration test in GitHub CI.
 
 ## Alternative PostgreSQL host
 

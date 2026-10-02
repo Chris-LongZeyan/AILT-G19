@@ -4,8 +4,8 @@ Measured locally on 2 October 2026. These results are for synthetic examples onl
 
 | Check | Result |
 |---|---|
-| Automated Python/UI suite | 44 passed |
-| PostgreSQL integration test | Skipped; no test PostgreSQL server configured |
+| Automated Python/UI suite | 44 passed locally; 45 passed in Linux CI |
+| PostgreSQL integration test | Passed against PostgreSQL 17 in CI |
 | Known-match keyword top-3 hit rate | 10/10 |
 | Keyword no-match cases | 0/4 |
 | Ambiguous cases handled before model call | 2/2 |
@@ -58,3 +58,16 @@ Give two classmates only the README and the supplied fictional query. Ask each
 to start the app and identify a possible match within five minutes. Record
 anonymous participant labels, completion time, success and encountered issues.
 Do not fabricate completion results or record personal details.
+
+## Verified build and deployment
+
+CI run https://github.com/Chris-LongZeyan/AILT-G19/actions/runs/36970092520
+passed 45 tests in 1.67 seconds and built the Docker image. The deployed
+application code is commit 072f3b0. Render built and started it successfully
+on 2 October 2026 at about 13:46 Asia/Shanghai.
+
+Public app: https://campus-find-g19.onrender.com
+
+Browser checks verified the 30-record catalogue indicator, the supplied keyword
+query returning LF-001 first, refusal of an ownership request, blank-input handling, and the explicit missing-key AI message. Real AI
+accuracy remains unmeasured because no key is configured.
