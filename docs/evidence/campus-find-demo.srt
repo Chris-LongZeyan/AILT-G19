@@ -1,0 +1,24 @@
+1
+00:00:00,150 --> 00:00:06,109
+This is Campus Find, our group project. Here is one live search.
+
+2
+00:00:06,140 --> 00:00:11,493
+I choose AI matching and enter a dark insulated flask with a silver screw top.
+
+3
+00:00:12,040 --> 00:00:18,588
+The server reads the PostgreSQL catalogue and sends the description and item records
+to Qwen Flash.
+
+4
+00:00:19,800 --> 00:00:25,148
+The app checks the returned item ID and verifies the quote against the source record.
+
+5
+00:00:25,400 --> 00:00:30,889
+The result is LF-001, a black bottle with a silver screw lid.
+
+6
+00:00:31,300 --> 00:00:37,239
+This is a possible match. Staff still verify ownership before collection.

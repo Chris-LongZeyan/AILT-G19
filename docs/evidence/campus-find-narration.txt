@@ -1,0 +1,13 @@
+Generated voice: Microsoft Zira Desktop (local Windows text-to-speech).
+
+This is Campus Find, our group project. Here is one live search.
+
+I choose AI matching and enter a dark insulated flask with a silver screw top.
+
+The server reads the PostgreSQL catalogue and sends the description and item records to Qwen Flash.
+
+The app checks the returned item ID and verifies the quote against the source record.
+
+The result is L F zero zero one, a black bottle with a silver screw lid.
+
+This is a possible match. Staff still verify ownership before collection.

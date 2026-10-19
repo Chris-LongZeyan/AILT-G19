@@ -82,7 +82,7 @@ Application commit: `d1d1e62`. The navigation contains Search, Catalogue and Sta
 GitHub Actions run 39200828663 passed the Python/PostgreSQL suite and Docker build.
 Render deployment `dep-dbapvt49v7es739g5m40` succeeded in 46.9 seconds.
 
-A live Qwen search returned LF-001 with source-verified evidence. The 32.7-second
+A live Qwen search returned LF-001 with source-verified evidence. The 40.1-second
 recording and its capture manifest are retained in `docs/evidence/`.
 PostgreSQL persistence and collection removal were verified during the inventory
 release; ongoing evaluation and backup restoration checks are described in
