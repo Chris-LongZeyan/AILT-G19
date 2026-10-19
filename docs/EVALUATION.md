@@ -4,7 +4,7 @@ Updated 19 October 2026. These results are for synthetic examples only.
 
 | Check | Result |
 |---|---|
-| Automated Python/UI suite | 60 passed locally; 2 PostgreSQL integration tests require CI |
+| Automated Python/UI suite | 60 passed locally; full CI suite passed with both PostgreSQL integration tests |
 | PostgreSQL integration test | Passed against PostgreSQL 17 in CI |
 | Known-match keyword top-3 hit rate | 10/10 |
 | Keyword no-match cases | 0/4 |
@@ -112,3 +112,7 @@ not an unseen benchmark. No result or expected answer was manually altered.
 The standalone page embeds an actual local UI run against SQLite with a real
 Qwen response. Independent team evidence review, new-query tests, location
 retrieval evaluation and the two-classmate usability exercise remain pending.
+
+Qwen release CI passed (including PostgreSQL and Docker build):
+https://github.com/Chris-LongZeyan/AILT-G19/actions/runs/39198290254
+Code commit: `bcb3143`.
