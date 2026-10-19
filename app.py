@@ -4,7 +4,7 @@ import streamlit as st
 from sqlalchemy.exc import SQLAlchemyError
 from lostfound.config import ROOT, load_settings
 from lostfound.database import connect_database, initialize, list_items, get_photo
-from lostfound.matching import PROMPT_VERSION, search
+from lostfound.matching import search
 from lostfound.locations import PLACE_OPTIONS, PLACES, UNSPECIFIED
 from lostfound.staff_ui import render_staff
 
@@ -45,7 +45,7 @@ except (SQLAlchemyError, ValueError, OSError):
     st.stop()
 
 st.html('<h1>Find a lost item</h1><p class="intro">Describe the item and, if known, where it was found.</p>')
-search_tab, browse_tab, staff_tab, about_tab = st.tabs(["Search", "Catalogue", "Staff", "About"], key="main_tabs", on_change="rerun")
+search_tab, browse_tab, staff_tab = st.tabs(["Search", "Catalogue", "Staff"], key="main_tabs", on_change="rerun")
 place_choices = ["All places"] + PLACE_OPTIONS + ([UNSPECIFIED] if any(r.place == UNSPECIFIED for r in catalogue) else [])
 
 with search_tab:
@@ -119,24 +119,4 @@ with staff_tab:
     except SQLAlchemyError:
         st.error("The staff database is unavailable. Please try again later.")
 
-with about_tab:
-    st.subheader("About Campus Find")
-    st.write("Students search available items. Authorised centre staff record items and photos, then confirm collection to remove them.")
-    st.write("Place labels use campus abbreviations where supplied. Older demonstration records have no recorded place.")
-    with st.expander("Place abbreviations"):
-        st.table([{"Label":code,"Place":name} for code,name in PLACES.items() if code != name])
-    st.caption("Independent student project, not an official HKU service. The initial 30 records are fictional.")
-    st.markdown("""**Privacy:** item descriptions and photos are visible to visitors. Staff must exclude personal details.
-Photos are compressed and metadata is removed. Searches are not stored. AI mode sends query and catalogue text
-to the selected provider; photos and staff credentials are never sent to the model.
-
-**Access:** staff accounts are provisioned by the administrator. Microsoft/HKU sign-in requires an approved
-application registration. App passwords are separate from HKU passwords.
-
-**Evaluation:** the initial keyword baseline found a known match in 10/10 cases but failed all 4 no-match cases.
-Qwen Flash passed 10/10 known-match and 4/4 no-match cases on 19 October 2026.
-This small development set was used during integration; it is not an unseen accuracy test.
-Location-aware retrieval and independent human evaluation remain pending.""")
-    st.link_button("Read the project overview", "https://campus-find-g19-project.onrender.com")
-    st.caption(f"Prompt: {PROMPT_VERSION} · Database: {engine.dialect.name}")
 st.html('<footer class="app-footer">Student search · Staff-managed records · In-person collection</footer>')

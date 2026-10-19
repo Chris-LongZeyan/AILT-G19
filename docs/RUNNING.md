@@ -1,8 +1,7 @@
-# Campus Find
+# Running Campus Find
 
 [Application](https://campus-find-g19.onrender.com) ·
-[Project page](https://campus-find-g19-project.onrender.com) ·
-[Private source](https://github.com/Chris-LongZeyan/AILT-G19)
+[Project page](https://campus-find-g19-project.onrender.com)
 
 An AILT9019 Group 19 lost-and-found project. Students search; authorised centre
 staff record items and photos, then confirm collection to remove them.
@@ -15,7 +14,6 @@ Independent student work, not an official HKU service.
 - **Staff:** sign in with a separate administrator-provisioned app account.
   Record category, colour, description, place and optional photo. To remove an
   item, select it under Confirm collection and confirm the in-person handover.
-- **About:** place abbreviation glossary and current limitations.
 
 Locations follow the supplied campus map: MW, HW, MB, JCT, etc.; facilities
 without supplied abbreviations retain their names. Older seed records are
@@ -23,14 +21,14 @@ marked "Not recorded"; their found locations have not been invented.
 
 Microsoft sign-in is prepared but needs HKU-approved registration. Do not use
 your HKU password in the app's password form. See
-[staff/sign-in setup](docs/STAFF_AND_SIGNIN.md).
+[staff/sign-in setup](STAFF_AND_SIGNIN.md).
 
 ## Run locally
 
 Python 3.13, Windows PowerShell:
 
 ```powershell
-cd D:\GitHub_Repositories\AILT-G19
+# Open a terminal in the project root
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 .\.venv\Scripts\python.exe -m streamlit run app.py --server.address=127.0.0.1
@@ -43,7 +41,7 @@ first startup; otherwise 30 fictional examples are seeded exactly once.
 
 Use DATABASE_URL for PostgreSQL. The deployed app uses Neon PostgreSQL to retain
 records/photos across Render restarts. Render's ephemeral SQLite is read-only.
-See [deployment](docs/DEPLOYMENT.md) and [architecture](docs/ARCHITECTURE.md).
+See [deployment](DEPLOYMENT.md) and [architecture](ARCHITECTURE.md).
 
 To provision staff, run:
 `python -m scripts.manage_staff add worker@example.com`.
@@ -68,13 +66,13 @@ all four no-match cases. That is not evidence of AI performance. Location-aware
 retrieval needs further evaluation. Qwen Flash passed 10/10 known-match and 4/4
 no-match cases on 19 October 2026. These are small development-set results,
 not an independent accuracy estimate.
-[Evaluation notes](docs/EVALUATION.md).
+[Evaluation notes](EVALUATION.md).
 
 ## Optional model and Microsoft configuration
 
 Qwen Flash uses the Beijing workspace endpoint in non-thinking JSON mode.
 Copy .env.example to ignored .env and configure the LLM fields for local use;
-production secrets belong in Render environment settings. See [Qwen setup](docs/QWEN_SETUP.md).
+production secrets belong in Render environment settings. See [Qwen setup](QWEN_SETUP.md).
 AI mode stays explicitly unavailable without credentials.
 
 Microsoft OIDC requires approved registration and the server-only MS_* and AUTH_*
@@ -83,11 +81,10 @@ The Microsoft page handles university credentials; only registered staff
 identities receive inventory permissions.
 
 Never commit .env, database files, staff credentials or .streamlit/secrets.toml.
-The original team Git remote remains unchanged; use the personal private remote.
 
 ## Standalone HTML
 
-Open website/index.html directly in a browser. It contains the rubric essentials
+Open ../website/index.html directly in a browser. It contains the rubric essentials
 and an embedded running screenshot, with no external assets or build step.
 Replace the labelled repository-link placeholder before submission.
-[Rubric coverage](docs/WEBPAGE_RUBRIC.md).
+[Rubric coverage](WEBPAGE_RUBRIC.md).

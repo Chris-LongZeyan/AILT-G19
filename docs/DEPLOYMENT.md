@@ -4,8 +4,7 @@
 
 - Application: https://campus-find-g19.onrender.com
 - Standalone page: https://campus-find-g19-project.onrender.com
-- Source: private Chris-LongZeyan/AILT-G19, main branch
-- Original team repository: unchanged
+- Source: private repository, main branch
 - Render web service: srv-davk9lbncjis73en5us0, Docker Free, Singapore
 - Render static site: srv-davkmvvavr4c73cds0eg, publish directory website
 - Manual deployment only; auto-deploy is off
@@ -80,7 +79,7 @@ inventory. Use a dedicated test database.
 ## Verified release, 2 October 2026
 
 Application and standalone HTML release: cf8cadd.
-GitHub CI passed: https://github.com/Chris-LongZeyan/AILT-G19/actions/runs/36978530394
+GitHub CI passed: GitHub Actions run 36978530394
 (two PostgreSQL integration tests plus the rest of the suite and Docker build).
 
 Static deploy: dep-davmp5k9v7es738d9r60.

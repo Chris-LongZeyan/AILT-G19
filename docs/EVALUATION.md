@@ -58,14 +58,14 @@ validation and human evidence review are still required for broader claims.
 
 ## Usability protocol
 
-Give two classmates only the README and the supplied fictional query. Ask each
+Give two classmates only docs/RUNNING.md and the supplied fictional query. Ask each
 to start the app and identify a possible match within five minutes. Record
 anonymous participant labels, completion time, success and encountered issues.
 Do not fabricate completion results or record personal details.
 
 ## Earlier build and deployment (historical)
 
-CI run https://github.com/Chris-LongZeyan/AILT-G19/actions/runs/36970092520
+CI run GitHub Actions run 36970092520
 passed 45 tests in 1.67 seconds and built the Docker image. The deployed
 application code is commit 072f3b0. Render built and started it successfully
 on 2 October 2026 at about 13:46 Asia/Shanghai.
@@ -86,7 +86,7 @@ recreate them. Local UI tests cover student search and explicit staff confirmati
 The existing 20-query benchmark was rerun unchanged; it does not evaluate location
 retrieval quality. The later Qwen run below measures AI on the original set.
 
-Current staff-inventory CI: https://github.com/Chris-LongZeyan/AILT-G19/actions/runs/36978530394 (cf8cadd).
+Current staff-inventory CI: GitHub Actions run 36978530394 (cf8cadd).
 
 ## Qwen integration run, 19 October 2026
 
@@ -114,5 +114,5 @@ Qwen response. Independent team evidence review, new-query tests, location
 retrieval evaluation and the two-classmate usability exercise remain pending.
 
 Qwen release CI passed (including PostgreSQL and Docker build):
-https://github.com/Chris-LongZeyan/AILT-G19/actions/runs/39198290254
+GitHub Actions run 39198290254
 Code commit: `bcb3143`.
