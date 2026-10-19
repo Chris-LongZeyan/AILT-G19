@@ -24,5 +24,5 @@ The page states that this is not an unseen accuracy evaluation.
 Dataset/answer-key review and usability evaluation are explicitly pending.
 The page does not invent a video, real-model result or assessor access.
 
-The screenshot was captured from the revised app on 2 October 2026. When refreshing
+The screenshot was captured from the revised app on 19 October 2026. When refreshing
 the evidence, use an actual run and replace the image data URL in the HTML.

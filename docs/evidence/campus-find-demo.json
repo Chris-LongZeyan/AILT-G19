@@ -1,0 +1,15 @@
+{
+  "recorded_at_utc": "2026-10-19T04:45:53.486Z",
+  "application_commit": "d1d1e6217526d642af438f31f9418ae373051085",
+  "application": "https://campus-find-g19.onrender.com/",
+  "database": "PostgreSQL",
+  "model": "qwen-flash",
+  "input": "dark insulated flask with a silver screw top",
+  "expected_id": "LF-001",
+  "observed_id": "LF-001",
+  "observed_evidence": "Black insulated metal water bottle with a silver screw lid",
+  "duration_seconds": 32.674,
+  "capture": "Continuous browser screenshots with original timestamps; 103 frames, encoded at 24 fps. No cuts or retiming. Explanation captions added below the unchanged application viewport.",
+  "sha256": "2cb40d97f29d32281f0ff220a657f83cb31fadee45f467b40cf4db4b1eab4f1b",
+  "validation": "Full video decode passed. Input, searching state, output and caption frames visually checked."
+}

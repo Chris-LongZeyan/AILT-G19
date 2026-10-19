@@ -8,4 +8,4 @@ __pycache__
 *.log
 evaluation/results
 
-submission
+docs/evidence/*.mp4

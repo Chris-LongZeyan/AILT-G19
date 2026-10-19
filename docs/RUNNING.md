@@ -1,6 +1,6 @@
 # Running Campus Find
 
-[Application](https://campus-find-g19.onrender.com) ·
+[Application](https://campus-find-g19.onrender.com) 路
 [Project page](https://campus-find-g19-project.onrender.com)
 
 An AILT9019 Group 19 lost-and-found project. Students search; authorised centre
@@ -84,7 +84,7 @@ Never commit .env, database files, staff credentials or .streamlit/secrets.toml.
 
 ## Standalone HTML
 
-Open ../website/index.html directly in a browser. It contains the rubric essentials
+Open [website/index.html](../website/index.html) directly in a browser. It contains the rubric essentials
 and an embedded running screenshot, with no external assets or build step.
 Replace the labelled repository-link placeholder before submission.
 [Rubric coverage](WEBPAGE_RUBRIC.md).

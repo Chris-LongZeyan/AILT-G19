@@ -76,19 +76,14 @@ The local Docker daemon was unavailable during initial verification; CI and
 Render validate container builds. Never run integration tests against the live
 inventory. Use a dedicated test database.
 
-## Verified release, 2 October 2026
+## Verified release, 19 October 2026
 
-Application and standalone HTML release: cf8cadd.
-GitHub CI passed: GitHub Actions run 36978530394
-(two PostgreSQL integration tests plus the rest of the suite and Docker build).
+Application commit: `d1d1e62`. The navigation contains Search, Catalogue and Staff.
+GitHub Actions run 39200828663 passed the Python/PostgreSQL suite and Docker build.
+Render deployment `dep-dbapvt49v7es739g5m40` succeeded in 46.9 seconds.
 
-Static deploy: dep-davmp5k9v7es738d9r60.
-Application database-setting deploy: dep-davmqhugekts73embid0.
-The public About tab was checked for Database: postgresql; the live staff account
-successfully opened recording and photo-upload controls.
-
-Render initially retained its old masked SQLite value during the environment
-edit. The value was corrected after loading the existing secret, then Save and
-deploy was used. Staff writes stayed disabled while SQLite was active.
-The PostgreSQL preview had already verified a browser-added synthetic record/photo,
-independent database reconnection and collection removal without seed resurrection.
+A live Qwen search returned LF-001 with source-verified evidence. The 32.7-second
+recording and its capture manifest are retained in `docs/evidence/`.
+PostgreSQL persistence and collection removal were verified during the inventory
+release; ongoing evaluation and backup restoration checks are described in
+EVALUATION.md. No test suite should target the live database.
