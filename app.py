@@ -134,7 +134,9 @@ to the selected provider; photos and staff credentials are never sent to the mod
 application registration. App passwords are separate from HKU passwords.
 
 **Evaluation:** the initial keyword baseline found a known match in 10/10 cases but failed all 4 no-match cases.
-The new location feature needs further retrieval evaluation. Live AI evaluation is pending.""")
+Qwen Flash passed 10/10 known-match and 4/4 no-match cases on 19 October 2026.
+This small development set was used during integration; it is not an unseen accuracy test.
+Location-aware retrieval and independent human evaluation remain pending.""")
     st.link_button("Read the project overview", "https://campus-find-g19-project.onrender.com")
     st.caption(f"Prompt: {PROMPT_VERSION} · Database: {engine.dialect.name}")
 st.html('<footer class="app-footer">Student search · Staff-managed records · In-person collection</footer>')

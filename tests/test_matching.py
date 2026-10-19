@@ -139,3 +139,39 @@ def test_secure_endpoint_required(settings):
     assert settings.ai_ready
     for url in ["http://provider.example/v1","https://user:pass@provider.example/v1","https://provider.example/v1?key=x"]:
         assert not replace(settings, base_url=url).ai_ready
+
+
+@pytest.mark.parametrize("provider,expected", [("Qwen", False), ("qwen", False), ("Other", None)])
+def test_provider_thinking_contract(provider, expected, records, settings):
+    from dataclasses import replace
+    def respond(req):
+        payload = json.loads(req.content)
+        assert payload.get("enable_thinking") is expected
+        assert payload["response_format"] == {"type": "json_object"}
+        return httpx.Response(200, json={"choices": [{"message": {
+            "content": '{"status":"matches","matches":[{"id":"LF-001","evidence":["silver screw lid"]}]}'}}]})
+    result = search("dark insulated flask silver lid", records, "ai",
+                    replace(settings, provider=provider), httpx.MockTransport(respond), RateLimiter())
+    assert result.status == "matches"
+    assert result.matches[0].id == "LF-001"
+
+
+def test_evidence_restores_source_capitalization(records):
+    payload = {"status":"matches", "matches":[{"id":"LF-007", "evidence":[
+        "yellow spiral notebook with grid paper"]}]}
+    result = validate_model_result(payload, records)
+    assert result.matches[0].evidence == ["Yellow spiral notebook with grid paper"]
+
+
+def test_case_normalization_does_not_accept_paraphrases(records):
+    payload = {"status":"matches", "matches":[{"id":"LF-007", "evidence":[
+        "yellow spiral notebook with squared paper"]}]}
+    with pytest.raises(ValueError, match="Unsupported evidence"):
+        validate_model_result(payload, records)
+
+
+def test_case_normalization_does_not_allow_duplicate_evidence(records):
+    payload = {"status":"matches", "matches":[{"id":"LF-007", "evidence":[
+        "yellow spiral notebook", "Yellow spiral notebook"]}]}
+    with pytest.raises(ValueError, match="Duplicate evidence"):
+        validate_model_result(payload, records)

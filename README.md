@@ -65,13 +65,17 @@ the Docker image.
 Try "black insulated bottle with a silver lid"; the fictional LF-001 is first.
 The original 20-query baseline found known matches in 10/10 cases but failed
 all four no-match cases. That is not evidence of AI performance. Location-aware
-retrieval needs further evaluation. A real LLM key is still unavailable.
+retrieval needs further evaluation. Qwen Flash passed 10/10 known-match and 4/4
+no-match cases on 19 October 2026. These are small development-set results,
+not an independent accuracy estimate.
 [Evaluation notes](docs/EVALUATION.md).
 
 ## Optional model and Microsoft configuration
 
-Copy .env.example to ignored .env and configure the LLM fields when a provider
-is selected. AI mode stays explicitly unavailable without them.
+Qwen Flash uses the Beijing workspace endpoint in non-thinking JSON mode.
+Copy .env.example to ignored .env and configure the LLM fields for local use;
+production secrets belong in Render environment settings. See [Qwen setup](docs/QWEN_SETUP.md).
+AI mode stays explicitly unavailable without credentials.
 
 Microsoft OIDC requires approved registration and the server-only MS_* and AUTH_*
 variables. Use `python -m scripts.start` to generate the private auth configuration.

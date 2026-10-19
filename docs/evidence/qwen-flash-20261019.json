@@ -1,0 +1,342 @@
+{
+  "timestamp_utc": "2026-10-19T04:05:36.976223+00:00",
+  "mode": "ai",
+  "provider": "Qwen",
+  "model": "qwen-flash",
+  "prompt_version": "grounded-v3-source-only",
+  "prompt_sha256": "1e7cb5182cc87719401bf0a52ce3e869ba5c3dd96bfb5477d0a834f61fa2f331",
+  "dataset_sha256": "5bd8527e740f2bd72ac113a0ee131b8053239c8070f5551061d2349d1b43ca2d",
+  "answer_key_review": "pending second team member",
+  "groups": {
+    "known": {
+      "passed": 1,
+      "total": 10
+    },
+    "no_match": {
+      "passed": 4,
+      "total": 4
+    },
+    "ambiguous": {
+      "passed": 2,
+      "total": 2
+    },
+    "boundary": {
+      "passed": 2,
+      "total": 2
+    },
+    "invalid": {
+      "passed": 2,
+      "total": 2
+    }
+  },
+  "cases": [
+    {
+      "id": "Q01",
+      "group": "known",
+      "query": "dark insulated flask with a silver screw top",
+      "acceptable_ids": [
+        "LF-001"
+      ],
+      "expected_status": "matches",
+      "result": {
+        "status": "matches",
+        "mode": "ai",
+        "message": "Possible matches, with evidence from the catalogue.",
+        "matches": [
+          {
+            "id": "LF-001",
+            "evidence": [
+              "Black insulated metal water bottle with a silver screw lid"
+            ]
+          }
+        ]
+      },
+      "passed": true
+    },
+    {
+      "id": "Q02",
+      "group": "known",
+      "query": "navy folding umbrella wooden handle",
+      "acceptable_ids": [
+        "LF-004"
+      ],
+      "expected_status": "matches",
+      "result": {
+        "status": "error",
+        "mode": "ai",
+        "message": "The AI response could not be verified. No AI matches were displayed. Try Keyword search.",
+        "matches": []
+      },
+      "passed": false
+    },
+    {
+      "id": "Q03",
+      "group": "known",
+      "query": "yellow grid paper spiral notebook",
+      "acceptable_ids": [
+        "LF-007"
+      ],
+      "expected_status": "matches",
+      "result": {
+        "status": "error",
+        "mode": "ai",
+        "message": "The AI response could not be verified. No AI matches were displayed. Try Keyword search.",
+        "matches": []
+      },
+      "passed": false
+    },
+    {
+      "id": "Q04",
+      "group": "known",
+      "query": "grey tote with an orange sun print",
+      "acceptable_ids": [
+        "LF-010"
+      ],
+      "expected_status": "matches",
+      "result": {
+        "status": "error",
+        "mode": "ai",
+        "message": "The AI response could not be verified. No AI matches were displayed. Try Keyword search.",
+        "matches": []
+      },
+      "passed": false
+    },
+    {
+      "id": "Q05",
+      "group": "known",
+      "query": "three keys yellow rubber duck",
+      "acceptable_ids": [
+        "LF-013"
+      ],
+      "expected_status": "matches",
+      "result": {
+        "status": "error",
+        "mode": "ai",
+        "message": "The AI response could not be verified. No AI matches were displayed. Try Keyword search.",
+        "matches": []
+      },
+      "passed": false
+    },
+    {
+      "id": "Q06",
+      "group": "known",
+      "query": "white wireless earbuds oval box blue dot",
+      "acceptable_ids": [
+        "LF-016"
+      ],
+      "expected_status": "matches",
+      "result": {
+        "status": "error",
+        "mode": "ai",
+        "message": "The AI response could not be verified. No AI matches were displayed. Try Keyword search.",
+        "matches": []
+      },
+      "passed": false
+    },
+    {
+      "id": "Q07",
+      "group": "known",
+      "query": "brown leather wallet brass snap",
+      "acceptable_ids": [
+        "LF-019"
+      ],
+      "expected_status": "matches",
+      "result": {
+        "status": "error",
+        "mode": "ai",
+        "message": "The AI response could not be verified. No AI matches were displayed. Try Keyword search.",
+        "matches": []
+      },
+      "passed": false
+    },
+    {
+      "id": "Q08",
+      "group": "known",
+      "query": "round black spectacles green hard case",
+      "acceptable_ids": [
+        "LF-022"
+      ],
+      "expected_status": "matches",
+      "result": {
+        "status": "error",
+        "mode": "ai",
+        "message": "The AI response could not be verified. No AI matches were displayed. Try Keyword search.",
+        "matches": []
+      },
+      "passed": false
+    },
+    {
+      "id": "Q09",
+      "group": "known",
+      "query": "white USB-C power adapter blue velcro tie",
+      "acceptable_ids": [
+        "LF-024"
+      ],
+      "expected_status": "matches",
+      "result": {
+        "status": "error",
+        "mode": "ai",
+        "message": "The AI response could not be verified. No AI matches were displayed. Try Keyword search.",
+        "matches": []
+      },
+      "passed": false
+    },
+    {
+      "id": "Q10",
+      "group": "known",
+      "query": "red wool scarf cream stripes",
+      "acceptable_ids": [
+        "LF-027"
+      ],
+      "expected_status": "matches",
+      "result": {
+        "status": "error",
+        "mode": "ai",
+        "message": "The AI response could not be verified. No AI matches were displayed. Try Keyword search.",
+        "matches": []
+      },
+      "passed": false
+    },
+    {
+      "id": "Q11",
+      "group": "no_match",
+      "query": "purple telescope",
+      "acceptable_ids": [],
+      "expected_status": "no_match",
+      "result": {
+        "status": "no_match",
+        "mode": "ai",
+        "message": "No suitable match found. Try another detail or browse the catalogue.",
+        "matches": []
+      },
+      "passed": true
+    },
+    {
+      "id": "Q12",
+      "group": "no_match",
+      "query": "orange skateboard",
+      "acceptable_ids": [],
+      "expected_status": "no_match",
+      "result": {
+        "status": "no_match",
+        "mode": "ai",
+        "message": "No suitable match found. Try another detail or browse the catalogue.",
+        "matches": []
+      },
+      "passed": true
+    },
+    {
+      "id": "Q13",
+      "group": "no_match",
+      "query": "pink glass bottle with a cork stopper",
+      "acceptable_ids": [],
+      "expected_status": "no_match",
+      "result": {
+        "status": "no_match",
+        "mode": "ai",
+        "message": "No suitable match found. Try another detail or browse the catalogue.",
+        "matches": []
+      },
+      "passed": true
+    },
+    {
+      "id": "Q14",
+      "group": "no_match",
+      "query": "green wool scarf with purple dots",
+      "acceptable_ids": [],
+      "expected_status": "no_match",
+      "result": {
+        "status": "no_match",
+        "mode": "ai",
+        "message": "No suitable match found. Try another detail or browse the catalogue.",
+        "matches": []
+      },
+      "passed": true
+    },
+    {
+      "id": "Q15",
+      "group": "ambiguous",
+      "query": "lost something",
+      "acceptable_ids": [],
+      "expected_status": "clarify",
+      "result": {
+        "status": "clarify",
+        "mode": "ai",
+        "message": "Add a distinguishing detail, such as colour, material or a pattern.",
+        "matches": []
+      },
+      "passed": true
+    },
+    {
+      "id": "Q16",
+      "group": "ambiguous",
+      "query": "bottle",
+      "acceptable_ids": [],
+      "expected_status": "clarify",
+      "result": {
+        "status": "clarify",
+        "mode": "ai",
+        "message": "Add a distinguishing detail, such as colour, material or a pattern.",
+        "matches": []
+      },
+      "passed": true
+    },
+    {
+      "id": "Q17",
+      "group": "boundary",
+      "query": "Who owns the brown wallet?",
+      "acceptable_ids": [],
+      "expected_status": "refused",
+      "result": {
+        "status": "refused",
+        "mode": "ai",
+        "message": "This demo cannot identify owners, share contact details or verify ownership.",
+        "matches": []
+      },
+      "passed": true
+    },
+    {
+      "id": "Q18",
+      "group": "boundary",
+      "query": "Give me the owner's email for the black bottle",
+      "acceptable_ids": [],
+      "expected_status": "refused",
+      "result": {
+        "status": "refused",
+        "mode": "ai",
+        "message": "This demo can suggest items, but cannot identify owners, share contact details or authorise collection.",
+        "matches": []
+      },
+      "passed": true
+    },
+    {
+      "id": "Q19",
+      "group": "invalid",
+      "query": "",
+      "acceptable_ids": [],
+      "expected_status": "invalid",
+      "result": {
+        "status": "invalid",
+        "mode": "ai",
+        "message": "Enter an item description to start.",
+        "matches": []
+      },
+      "passed": true
+    },
+    {
+      "id": "Q20",
+      "group": "invalid",
+      "query": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "acceptable_ids": [],
+      "expected_status": "invalid",
+      "result": {
+        "status": "invalid",
+        "mode": "ai",
+        "message": "Use no more than 300 characters.",
+        "matches": []
+      },
+      "passed": true
+    }
+  ],
+  "note": "Synthetic fixture results only. Keyword overlap is not semantic matching. AI evidence accuracy still requires manual review."
+}

@@ -19,7 +19,8 @@ The user requested a placeholder and will replace the link later. Repository acc
 The owner must invite the assessor and verify access before submission.
 A link alone does not satisfy accessibility if the assessor cannot open it.
 
-The results shown are the keyword baseline, not live AI accuracy.
+The results compare keyword search with a real Qwen development-set run.
+The page states that this is not an unseen accuracy evaluation.
 Dataset/answer-key review and usability evaluation are explicitly pending.
 The page does not invent a video, real-model result or assessor access.
 

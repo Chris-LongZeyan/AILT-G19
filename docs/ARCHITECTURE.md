@@ -36,3 +36,17 @@ Limitations: Streamlit browser sessions are not a full enterprise access
 management system; OIDC needs HKU approval and live validation. The dataset and
 retrieval evaluation are small, and human collection verification stays outside
 the app. Free service quotas and backup retention must be monitored.
+
+## Qwen matching
+
+The Qwen adapter uses the Beijing workspace's OpenAI-compatible Chat Completions
+endpoint, model `qwen-flash`, `enable_thinking: false`, temperature 0 and JSON
+Object output. The provider is selected with `LLM_PROVIDER=Qwen`; other providers
+do not receive the Qwen-specific thinking flag. Keys stay in server environment
+variables. Only the description and filtered catalogue text enter a request.
+
+Every returned ID and description excerpt is validated; case-only differences
+are restored to the source spelling before display. Changed wording, malformed or
+unsupported evidence fails closed with no AI matches displayed. AI errors never
+silently fall back to keyword results. A process-wide limit of 10 requests per
+minute and a 30-second configured timeout keep the course demo bounded.

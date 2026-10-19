@@ -61,10 +61,11 @@ See STAFF_AND_SIGNIN.md for provisioning and the pending Microsoft registration.
 There are no default committed passwords. Local generated staff credentials are
 stored in ignored storage/staff-access.txt for the owner.
 
-The LLM API key is still unavailable. Add LLM_API_KEY, LLM_BASE_URL, LLM_MODEL and
-LLM_PROVIDER as server-side environment variables when ready. The provider must
-support the adapter's Chat Completions JSON contract. Staff passwords and photos
-are never included in model requests. Live AI evaluation remains pending.
+Qwen Flash is configured with the Beijing workspace endpoint and server-side
+LLM_API_KEY, LLM_BASE_URL, LLM_MODEL and LLM_PROVIDER settings. See QWEN_SETUP.md.
+Thinking is disabled and JSON output is validated against SQL catalogue records.
+Staff passwords and photos are never included in model requests. The 19 October
+2026 synthetic evaluation is recorded in EVALUATION.md; it is a development set.
 
 ## Local containers
 
