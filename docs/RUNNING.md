@@ -84,7 +84,7 @@ Never commit .env, database files, staff credentials or .streamlit/secrets.toml.
 
 ## Standalone HTML
 
-Open [website/index.html](../website/index.html) directly in a browser. It contains the rubric essentials
-and an embedded running screenshot, with no external assets or build step.
-Replace the labelled repository-link placeholder before submission.
-[Rubric coverage](WEBPAGE_RUBRIC.md).
+Open [website/index.html](../website/index.html) directly in a browser. It explains
+the application and includes an embedded running screenshot, with no external
+assets or build step. Update the labelled repository-link placeholder when
+publishing the page.

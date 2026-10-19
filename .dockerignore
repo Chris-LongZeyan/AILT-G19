@@ -7,5 +7,3 @@ __pycache__
 .pytest_cache
 *.log
 evaluation/results
-
-docs/evidence/*.mp4
