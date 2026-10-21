@@ -11,6 +11,16 @@ services:
         sync: false
       - key: SEED_DEMO_DATA
         value: "true"
+      - key: LLM_API_KEY
+        sync: false
+      - key: LLM_BASE_URL
+        value: "https://token-plan.cn-beijing.maas.aliyuncs.com/compatible-mode/v1"
+      - key: LLM_MODEL
+        value: "qwen-flash"
+      - key: LLM_PROVIDER
+        value: "Qwen"
+      - key: LLM_TIMEOUT_SECONDS
+        value: "30"
       - key: LLM_REQUESTS_PER_MINUTE
         value: "10"
   - type: web

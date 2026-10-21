@@ -60,7 +60,7 @@ See STAFF_AND_SIGNIN.md for provisioning and the pending Microsoft registration.
 There are no default committed passwords. Local generated staff credentials are
 stored in ignored storage/staff-access.txt for the owner.
 
-Qwen Flash is configured with the Beijing workspace endpoint and server-side
+Qwen Flash is configured with the sponsored Bailian token-plan endpoint and server-side
 LLM_API_KEY, LLM_BASE_URL, LLM_MODEL and LLM_PROVIDER settings. See QWEN_SETUP.md.
 Thinking is disabled and JSON output is validated against SQL catalogue records.
 Staff passwords and photos are never included in model requests. The 19 October
