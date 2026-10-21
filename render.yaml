@@ -16,7 +16,7 @@ services:
       - key: LLM_BASE_URL
         value: "https://token-plan.cn-beijing.maas.aliyuncs.com/compatible-mode/v1"
       - key: LLM_MODEL
-        value: "qwen-flash"
+        value: "qwen3.6-flash"
       - key: LLM_PROVIDER
         value: "Qwen"
       - key: LLM_TIMEOUT_SECONDS
